@@ -36,13 +36,6 @@ def go(args):
     logger.info("Converting last_review to datetime")
     df['last_review'] = pd.to_datetime(df['last_review'])
 
-    # Drop rows outside proper geographic boundaries for NYC. This is needed to
-    # make the data_check step pass on new samples that may contain a few rows
-    # outside the expected latitude/longitude range.
-    logger.info("Filtering rows to NYC geographic boundaries")
-    idx = df['longitude'].between(-74.25, -73.50) & df['latitude'].between(40.5, 41.2)
-    df = df[idx].copy()
-
     output_path = "clean_sample.csv"
     logger.info("Saving cleaned data to %s", output_path)
     df.to_csv(output_path, index=False)
