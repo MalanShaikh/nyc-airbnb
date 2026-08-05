@@ -29,10 +29,30 @@ entry_points:
         description: Maximum price to consider (rows with higher price will be dropped)
         type: float
 
+      min_longitude:
+        description: Minimum longitude for the NYC bounding box
+        type: float
+
+      max_longitude:
+        description: Maximum longitude for the NYC bounding box
+        type: float
+
+      min_latitude:
+        description: Minimum latitude for the NYC bounding box
+        type: float
+
+      max_latitude:
+        description: Maximum latitude for the NYC bounding box
+        type: float
+
     command: >-
       python run.py --input_artifact {input_artifact} \
                     --output_artifact {output_artifact} \
                     --output_type {output_type} \
                     --output_description {output_description} \
                     --min_price {min_price} \
-                    --max_price {max_price}
+                    --max_price {max_price} \
+                    --min_longitude {min_longitude} \
+                    --max_longitude {max_longitude} \
+                    --min_latitude {min_latitude} \
+                    --max_latitude {max_latitude}

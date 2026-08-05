@@ -36,6 +36,21 @@ def go(args):
     logger.info("Converting last_review to datetime")
     df['last_review'] = pd.to_datetime(df['last_review'])
 
+    # Drop rows outside proper geographic boundaries for NYC. This is needed to
+    # make the data_check step pass on new samples that may contain a few rows
+    # outside the expected latitude/longitude range.
+    logger.info(
+        "Filtering rows to NYC geographic boundaries: "
+        "lon in [%s, %s], lat in [%s, %s]",
+        args.min_longitude, args.max_longitude,
+        args.min_latitude, args.max_latitude,
+    )
+    idx = (
+        df['longitude'].between(args.min_longitude, args.max_longitude)
+        & df['latitude'].between(args.min_latitude, args.max_latitude)
+    )
+    df = df[idx].copy()
+
     output_path = "clean_sample.csv"
     logger.info("Saving cleaned data to %s", output_path)
     df.to_csv(output_path, index=False)
@@ -100,6 +115,34 @@ if __name__ == "__main__":
         "--max_price",
         type=float,
         help="Maximum price to consider (rows with higher price will be dropped)",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--min_longitude",
+        type=float,
+        help="Minimum longitude for the NYC bounding box",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--max_longitude",
+        type=float,
+        help="Maximum longitude for the NYC bounding box",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--min_latitude",
+        type=float,
+        help="Minimum latitude for the NYC bounding box",
+        required=True,
+    )
+
+    parser.add_argument(
+        "--max_latitude",
+        type=float,
+        help="Maximum latitude for the NYC bounding box",
         required=True,
     )
 

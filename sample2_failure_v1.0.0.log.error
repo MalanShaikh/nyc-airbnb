@@ -1,0 +1,16 @@
+$ mlflow run https://github.com/MalanShaikh/nyc-airbnb.git \
+      -v 1.0.0 \
+      -P hydra_options="etl.sample='sample2.csv'"
+
+test_data.py::test_column_names PASSED                                     [ 16%]
+test_data.py::test_neighborhood_names PASSED                               [ 33%]
+test_data.py::test_proper_boundaries FAILED                                [ 50%]
+test_data.py::test_similar_neigh_distrib PASSED                            [ 66%]
+test_data.py::test_row_count PASSED                                        [ 83%]
+test_data.py::test_price_range PASSED                                      [100%]
+
+FAILED test_data.py::test_proper_boundaries - assert np.int64(1) == 0
+==================== 1 failed, 5 passed, 4 warnings in 5.07s =====================
+
+Result: pipeline v1.0.0 fails on sample2.csv because 1 listing has
+coordinates outside the NYC bounding box.
