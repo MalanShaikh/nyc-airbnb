@@ -3,9 +3,17 @@
 ## Submission links
 
 - **GitHub repository:** https://github.com/MalanShaikh/nyc-airbnb
-- **Weights & Biases project (public):** https://wandb.ai/malanshaikh-wadia-college-of-engineering/nyc_airbnb/
+- **Weights & Biases project (public):** https://wandb.ai/malanshaikh-wadia-college-of-engineering/nyc_airbnb
+- **Latest release:** [`1.0.1`](https://github.com/MalanShaikh/nyc-airbnb/releases/tag/1.0.1) — filter listings outside NYC geographic boundaries
+- **Baseline release:** [`1.0.0`](https://github.com/MalanShaikh/nyc-airbnb/releases/tag/1.0.0) — first working pipeline (fails on `sample2.csv`, fixed in `1.0.1`)
 
-Update: Both links are public
+## Submission notes
+
+- **EDA notebook:** [`src/eda/EDA.ipynb`](src/eda/EDA.ipynb) — fetches `sample.csv:latest` from W&B, profiles it with `ydata-profiling`, and shows the cleaning steps that motivate the constants in `src/basic_cleaning/run.py`.
+- **Best model (prod):** run `easy-blaze-18`, validation MAE **34.09**, test-set MAE **33.70** (R² 0.566). The `prod` alias in W&B points at the corresponding `random_forest_export` version.
+- **Release loop verified:**
+  - `mlflow run https://github.com/MalanShaikh/nyc-airbnb.git -v 1.0.0 -P hydra_options="etl.sample='sample2.csv'"` → fails at `test_proper_boundaries` (1 listing outside NYC). Terminal log saved in [`sample2_failure_v1.0.0.log`](sample2_failure_v1.0.0.log).
+  - `mlflow run https://github.com/MalanShaikh/nyc-airbnb.git -v 1.0.1 -P hydra_options="etl.sample='sample2.csv'"` → succeeds end to end.
 
 ---
 
