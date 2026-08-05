@@ -3,9 +3,9 @@
 ## Submission links
 
 - **GitHub repository:** https://github.com/MalanShaikh/nyc-airbnb
-- **Weights & Biases project (public):**https://wandb.ai/malanshaikh-wadia-college-of-engineering/nyc_airbnb/
+- **Weights & Biases project (public):** https://wandb.ai/malanshaikh-wadia-college-of-engineering/nyc_airbnb/
 
--- Not able to make the wandb project public
+Update: Both links are public
 
 ---
 
